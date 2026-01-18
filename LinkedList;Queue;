@@ -1,0 +1,48 @@
+import java.util.LinkedList;
+import java.util.Queue;
+
+public class MergeSortedQueues {
+    public static void main(String[] args) {
+        Queue<Integer> q1 = new LinkedList<>();
+        Queue<Integer> q2 = new LinkedList<>();
+
+        //  إضافة عناصر مرتبة مسبقًا
+        q1.add(1);
+        q1.add(3);
+        q1.add(5);
+
+        q2.add(2);
+        q2.add(4);
+        q2.add(6);
+
+        Queue<Integer> merged = mergeQueues(q1, q2);
+
+        //  طباعة الطابور المدمج
+        while (!merged.isEmpty()) {
+            System.out.print(merged.poll() + " ");
+        }
+    }
+
+    public static Queue<Integer> mergeQueues(Queue<Integer> q1, Queue<Integer> q2) {
+        Queue<Integer> result = new LinkedList<>();
+
+        //  دمج الطوابير حسب الترتيب
+        while (!q1.isEmpty() && !q2.isEmpty()) {
+            if (q1.peek() <= q2.peek()) {
+                result.add(q1.poll()); //  أخذ الأصغر من q1
+            } else {
+                result.add(q2.poll()); //  أخذ الأصغر من q2
+            }
+        }
+
+        //  إضافة العناصر المتبقية
+        while (!q1.isEmpty()) {
+            result.add(q1.poll());
+        }
+        while (!q2.isEmpty()) {
+            result.add(q2.poll());
+        }
+
+        return result;
+    }
+}
